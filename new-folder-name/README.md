@@ -1,35 +1,32 @@
-# Import the random module to generate a random number
-import random
+# 🎯 Number Guessing Game (Python GUI)
 
-# Define the main function for the number guessing game
-def number_guessing_game():
-    # Generate a random number between 1 and 100 (inclusive)
-    number_to_guess = random.randint(1, 100)
-    attempts = 0  # Counter to track the number of guesses
+A simple and fun number guessing game built with Python's `tkinter` library for a graphical user interface (GUI).
 
-    # Welcome message
-    print("Welcome to the Number Guessing Game!")
-    print("I'm thinking of a number between 1 and 100.")
+---
 
-    # Loop until the user guesses the correct number
-    while True:
-        try:
-            # Take user input and convert it to an integer
-            guess = int(input("Take a guess: "))
-            attempts += 1  # Increment attempt count
+## 📌 Description
 
-            # Compare guess with the actual number
-            if guess < number_to_guess:
-                print("Too low!")  # Hint for the user
-            elif guess > number_to_guess:
-                print("Too high!")  # Hint for the user
-            else:
-                # Correct guess
-                print(f"🎉 Congratulations! You guessed the number in {attempts} attempts.")
-                break  # Exit the loop
-        except ValueError:
-            # Handle case when user inputs non-integer
-            print("Please enter a valid number.")
+This project is a beginner-friendly Python game where the computer randomly picks a number between 1 and 100. The player must guess the number, and the game gives feedback if the guess is too high, too low, or correct. The interface is created using `tkinter`.
 
-# Run the game
-number_guessing_game()
+---
+
+## 🖥 Features
+
+- Random number generation between 1 and 100
+- Easy-to-use GUI using `tkinter`
+- Displays hints for high/low guesses
+- Shows total attempts when the user wins
+- Auto-reset after correct guess
+- Input validation (handles non-numeric input)
+
+---
+
+## 🚀 How to Run
+
+1. Make sure Python 3 is installed on your computer.
+2. Clone this repository or download the Python file.
+3. Open your terminal (or IDE) and navigate to the project folder.
+4. Run the script:
+
+```bash
+python number_guessing_game_gui.py

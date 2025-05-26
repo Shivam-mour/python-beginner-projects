@@ -1,35 +1,63 @@
-# Import the random module to generate a random number
+# Import tkinter for GUI components and messagebox for popup alerts
+import tkinter as tk
+from tkinter import messagebox
 import random
 
-# Define the main function for the number guessing game
-def number_guessing_game():
-    # Generate a random number between 1 and 100 (inclusive)
-    number_to_guess = random.randint(1, 100)
-    attempts = 0  # Counter to track the number of guesses
+# Define a class for the Number Guessing Game
+class NumberGuessingGame:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Number Guessing Game")  # Set window title
+        self.root.geometry("300x200")  # Set window size
 
-    # Welcome message
-    print("Welcome to the Number Guessing Game!")
-    print("I'm thinking of a number between 1 and 100.")
+        # Generate a random number between 1 and 100
+        self.number_to_guess = random.randint(1, 100)
+        self.attempts = 0  # Track number of attempts
 
-    # Loop until the user guesses the correct number
-    while True:
+        # Label prompting user to guess
+        self.label = tk.Label(root, text="Guess a number (1–100):")
+        self.label.pack(pady=10)
+
+        # Entry box for user input
+        self.entry = tk.Entry(root)
+        self.entry.pack()
+
+        # Button to submit guess
+        self.button = tk.Button(root, text="Submit", command=self.check_guess)
+        self.button.pack(pady=10)
+
+        # Label to show result messages
+        self.result_label = tk.Label(root, text="")
+        self.result_label.pack()
+
+    # Function to check the user's guess
+    def check_guess(self):
         try:
-            # Take user input and convert it to an integer
-            guess = int(input("Take a guess: "))
-            attempts += 1  # Increment attempt count
+            guess = int(self.entry.get())  # Get guess from entry
+            self.attempts += 1  # Increase attempt count
 
-            # Compare guess with the actual number
-            if guess < number_to_guess:
-                print("Too low!")  # Hint for the user
-            elif guess > number_to_guess:
-                print("Too high!")  # Hint for the user
+            # Compare guess to the generated number
+            if guess < self.number_to_guess:
+                self.result_label.config(text="Too low!")
+            elif guess > self.number_to_guess:
+                self.result_label.config(text="Too high!")
             else:
-                # Correct guess
-                print(f"🎉 Congratulations! You guessed the number in {attempts} attempts.")
-                break  # Exit the loop
+                # Show success message
+                messagebox.showinfo("Congratulations!",
+                                    f"You guessed it in {self.attempts} attempts!")
+                self.reset_game()  # Reset game after correct guess
         except ValueError:
-            # Handle case when user inputs non-integer
-            print("Please enter a valid number.")
+            self.result_label.config(text="Please enter a valid number.")  # Handle invalid input
 
-# Run the game
-number_guessing_game()
+    # Function to reset the game
+    def reset_game(self):
+        self.number_to_guess = random.randint(1, 100)  # New number
+        self.attempts = 0  # Reset attempt counter
+        self.entry.delete(0, tk.END)  # Clear input field
+        self.result_label.config(text="")  # Clear result label
+
+# Start the GUI application
+if __name__ == "__main__":
+    root = tk.Tk()
+    game = NumberGuessingGame(root)
+    root.mainloop()
